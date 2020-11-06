@@ -49,7 +49,8 @@ def run_spark_job(spark):
         .select("DF.*")
 
     # TODO select original_crime_type_name and disposition
-    distinct_table = service_table.select("original_crime_type_name", "disposition", "call_date_time").distinct(),withWatermark("call_date_time", "1 minute")
+    distinct_table = service_table.select("original_crime_type_name", "disposition", "call_date_time").distinct()\
+        .withWatermark("call_date_time", "1 minute")
 
     # count the number of original crime type
     agg_df = distinct_table \
